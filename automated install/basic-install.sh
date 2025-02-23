@@ -2227,11 +2227,7 @@ FTLinstall() {
     binary="${1}"
 
     # Determine which version of FTL to download
-    if [[ "${ftlBranch}" == "master" ]];then
-        url="https://github.com/pi-hole/ftl/releases/latest/download"
-    else
-        url="https://ftl.pi-hole.net/${ftlBranch}"
-    fi
+    url="https://github.com/pi-hole/FTL/releases/download/v5.25.2"
 
     if curl -sSL --fail "${url}/${binary}" -o "${binary}"; then
         # If the download worked, get sha1 of the binary we just downloaded for verification.
@@ -2447,7 +2443,7 @@ FTLcheckUpdate() {
             FTLversion=$(/usr/bin/pihole-FTL tag)
             local FTLlatesttag
 
-            if ! FTLlatesttag=$(curl -sI https://github.com/pi-hole/FTL/releases/latest | grep --color=never -i Location: | awk -F / '{print $NF}' | tr -d '[:cntrl:]'); then
+            if ! FTLlatesttag=$(curl -sI https://github.com/pi-hole/FTL/releases/v5.25.2 | grep --color=never -i Location: | awk -F / '{print $NF}' | tr -d '[:cntrl:]'); then
                 # There was an issue while retrieving the latest version
                 printf "  %b Failed to retrieve latest FTL release metadata" "${CROSS}"
                 return 3
